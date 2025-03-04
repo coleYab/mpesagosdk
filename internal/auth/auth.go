@@ -52,15 +52,15 @@ func (a *AuthToken) GetToken(env string) (string, error) {
 
 // TODO: do we really need this?
 func (a *AuthToken) GetUserCredentials() (string, string) {
-    return a.consumerKey, a.consumerSecret
+	return a.consumerKey, a.consumerSecret
 }
 
 func (a *AuthToken) setAuthToken(tokenType, token string, expiresIn int) {
 	a.token = fmt.Sprintf("%v %v", tokenType, token)
 	a.createdAt = time.Now()
-	a.expiresAt = a.createdAt.Add(time.Duration(expiresIn - 10) * time.Second)
-    // I want to expire always before 10 seconds of the actual expiration time
-    // that will ensure we will never have the authorization token expired error
+	a.expiresAt = a.createdAt.Add(time.Duration(expiresIn-10) * time.Second)
+	// I want to expire always before 10 seconds of the actual expiration time
+	// that will ensure we will never have the authorization token expired error
 }
 
 func (a *AuthToken) fetchAuthToken(env string) error {
@@ -99,7 +99,7 @@ func (a *AuthToken) fetchAuthToken(env string) error {
 		return err
 	}
 
-    // TODO: use the sdk error handling
+	// TODO: use the sdk error handling
 	if authResponse.ResultCode != "" {
 		return fmt.Errorf("error occured due to: %v", authResponse.ResultDesc)
 	}

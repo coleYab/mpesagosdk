@@ -64,7 +64,7 @@ func NewFromEnv() (*Config, error) {
 		return nil, fmt.Errorf("consumer Secret or consumer key is requried")
 	}
 
-    // TODO: take this as a validation error
+	// TODO: take this as a validation error
 	if config.Timeout == 0 {
 		return nil, fmt.Errorf("timout has to be greater than 0")
 	}

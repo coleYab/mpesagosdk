@@ -36,7 +36,7 @@ func New(cfg *config.Config) *HttpClient {
 		Timeout:   time.Duration(cfg.Timeout) * time.Second,
 	}
 
-    // Authorization token that will be used by the application
+	// Authorization token that will be used by the application
 	token := auth.New(cfg.ConsumerKey, cfg.ConsumerSecret)
 
 	return &HttpClient{
@@ -50,7 +50,7 @@ func New(cfg *config.Config) *HttpClient {
 
 // TODO: what if i return []bytes insted of http.Response
 func (c *HttpClient) ApiRequest(env string, endpoint, method string, payload interface{}, authType string) (*http.Response, error) {
-    url := utils.ConstructURL(env, endpoint)
+	url := utils.ConstructURL(env, endpoint)
 
 	var body io.Reader
 	if payload != nil {
