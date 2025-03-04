@@ -46,7 +46,7 @@ func executeRequest(m *App, req types.MpesaRequest, endpoint, method string, aut
 }
 
 func (m *App) MakeAccountBalanceQuery(req account.AccountBalanceRequest) (*account.AccountBalanceSuccessResponse, error) {
-    endpoint := "/mpesa/accountbalance/v1/query"
+	endpoint := "/mpesa/accountbalance/v1/query"
 	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
 	if err != nil {
 		return nil, err
@@ -75,9 +75,8 @@ func (m *App) MakeB2CPaymentRequest(req b2c.B2CRequest) (*b2c.B2CSuccessResponse
 	return &resC, nil
 }
 
-
 func (m *App) MakeTransactionReversalRequest(req transaction.TransactionReversalRequest) (*transaction.TransactionReversalResponse, error) {
-    endpoint := "/mpesa/reversal/v1/request"
+	endpoint := "/mpesa/reversal/v1/request"
 	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
 	if err != nil {
 		return nil, err
@@ -91,9 +90,8 @@ func (m *App) MakeTransactionReversalRequest(req transaction.TransactionReversal
 	return &resC, nil
 }
 
-
 func (m *App) MakeTransactionStatusQuery(req transaction.TransactionStatusRequest) (*transaction.TransactionStatusResponse, error) {
-    endpoint := "/mpesa/transactionstatus/v1/query"
+	endpoint := "/mpesa/transactionstatus/v1/query"
 	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
 	if err != nil {
 		return nil, err

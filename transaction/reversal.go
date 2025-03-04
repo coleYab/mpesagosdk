@@ -11,12 +11,12 @@ import (
 
 type TransactionReversalRequest struct {
 	Initiator                string               `json:"Initiator" validate:"required,min=3,max=50"`
-	SecurityCredential       string               `json:"SecurityCredential" validate:"required,min=8,max=100"`
+	SecurityCredential       string               `json:"SecurityCredential" validate:"required"`
 	CommandID                types.CommandId      `json:"CommandID" validate:"required"`
 	TransactionID            string               `json:"TransactionID" validate:"required,min=10,max=100"`
 	Amount                   uint64               `json:"Amount" validate:"required,gte=1"`
-	ReceiverParty            string               `json:"ReceiverParty" validate:"required,min=3,max=50"`
-	RecieverIdentifierType   types.IdentifierType `json:"RecieverIdentifierType" validate:"required"`
+	PartyA            string               `json:"ReceiverParty" validate:"required,min=3,max=50"`
+	IdentifierType   types.IdentifierType `json:"RecieverIdentifierType" validate:"required"`
 	QueueTimeOutURL          string               `json:"QueueTimeOutURL" validate:"required,url"`
 	ResultURL                string               `json:"ResultURL" validate:"required,url"`
 	Remarks                  string               `json:"Remarks" validate:"omitempty,max=200"`
