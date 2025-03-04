@@ -2,7 +2,6 @@ package b2c
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -31,8 +30,6 @@ func (b *B2CRequest) DecodeResponse(res *http.Response) (types.MpesaResponse, er
 
 	responseData := B2CSuccessResponse{}
 	err := json.Unmarshal(bodyData, &responseData)
-	fmt.Println("Printing the response: ", responseData)
-	fmt.Println(string(bodyData))
 	if err != nil {
 		return nil, err
 	}

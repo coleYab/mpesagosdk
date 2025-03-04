@@ -9,6 +9,7 @@ import (
 	"github.com/coleYab/mpesasdk/config"
 	"github.com/coleYab/mpesasdk/internal/auth"
 	"github.com/coleYab/mpesasdk/internal/client"
+	"github.com/coleYab/mpesasdk/transaction"
 	"github.com/coleYab/mpesasdk/types"
 	"github.com/go-playground/validator/v10"
 )
@@ -36,7 +37,6 @@ func executeRequest(m *App, req types.MpesaRequest, endpoint, method string, aut
 
 	response, err := m.client.ApiRequest(m.cfg.Enviroment, endpoint, method, req, authType)
 	if err != nil {
-		fmt.Println("Error: occured here: ", err)
 		return nil, err
 	}
 	defer response.Body.Close()
@@ -46,7 +46,7 @@ func executeRequest(m *App, req types.MpesaRequest, endpoint, method string, aut
 }
 
 func (m *App) MakeAccountBalanceQuery(req account.AccountBalanceRequest) (*account.AccountBalanceSuccessResponse, error) {
-	endpoint := "/mpesa/b2c/v2/paymentrequest"
+    endpoint := "/mpesa/accountbalance/v1/query"
 	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
 	if err != nil {
 		return nil, err
@@ -68,6 +68,38 @@ func (m *App) MakeB2CPaymentRequest(req b2c.B2CRequest) (*b2c.B2CSuccessResponse
 	}
 
 	resC, ok := res.(b2c.B2CSuccessResponse)
+	if !ok {
+		return nil, fmt.Errorf("unable to decode success message")
+	}
+
+	return &resC, nil
+}
+
+
+func (m *App) MakeTransactionReversalRequest(req transaction.TransactionReversalRequest) (*transaction.TransactionReversalResponse, error) {
+    endpoint := "/mpesa/reversal/v1/request"
+	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
+	if err != nil {
+		return nil, err
+	}
+
+	resC, ok := res.(transaction.TransactionReversalResponse)
+	if !ok {
+		return nil, fmt.Errorf("unable to decode success message")
+	}
+
+	return &resC, nil
+}
+
+
+func (m *App) MakeTransactionStatusQuery(req transaction.TransactionStatusRequest) (*transaction.TransactionStatusResponse, error) {
+    endpoint := "/mpesa/transactionstatus/v1/query"
+	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
+	if err != nil {
+		return nil, err
+	}
+
+	resC, ok := res.(transaction.TransactionStatusResponse)
 	if !ok {
 		return nil, fmt.Errorf("unable to decode success message")
 	}

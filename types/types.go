@@ -18,7 +18,7 @@ const (
 type IdentifierType string
 
 const (
-    MsisdnIdentifierType   IdentifierType = "1"
-    TillNumberIdentifierType IdentifierType = "2"
-    ShortCodeIdentifierType IdentifierType = "4"
+	MsisdnIdentifierType     IdentifierType = "1"
+	TillNumberIdentifierType IdentifierType = "2"
+	ShortCodeIdentifierType  IdentifierType = "4"
 )
