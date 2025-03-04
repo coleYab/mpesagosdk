@@ -14,3 +14,11 @@ const (
 	TransactionStatusCommand      CommandId = "TransactionStatusQuery"
 	TransactionReversalCommand    CommandId = "TransactionReversal"
 )
+
+type IdentifierType string
+
+const (
+    MsisdnIdentifierType   IdentifierType = "1"
+    TillNumberIdentifierType IdentifierType = "2"
+    ShortCodeIdentifierType IdentifierType = "4"
+)

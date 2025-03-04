@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/coleYab/mpesasdk/account"
 	"github.com/coleYab/mpesasdk/b2c"
 	"github.com/coleYab/mpesasdk/config"
 	"github.com/coleYab/mpesasdk/internal/auth"
@@ -42,6 +43,21 @@ func executeRequest(m *App, req types.MpesaRequest, endpoint, method string, aut
 
 	// Decode the response and type assert the response failing is impossible
 	return req.DecodeResponse(response)
+}
+
+func (m *App) MakeAccountBalanceQuery(req account.AccountBalanceRequest) (*account.AccountBalanceSuccessResponse, error) {
+	endpoint := "/mpesa/b2c/v2/paymentrequest"
+	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
+	if err != nil {
+		return nil, err
+	}
+
+	resC, ok := res.(account.AccountBalanceSuccessResponse)
+	if !ok {
+		return nil, fmt.Errorf("unable to decode success message")
+	}
+
+	return &resC, nil
 }
 
 func (m *App) MakeB2CPaymentRequest(req b2c.B2CRequest) (*b2c.B2CSuccessResponse, error) {
