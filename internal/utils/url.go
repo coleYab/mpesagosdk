@@ -1,6 +1,6 @@
 package utils
 
-const ProductionURL = ""
+const ProductionURL = "https://api.safaricom.et"
 const SandboxURL = "https://apisandbox.safaricom.et"
 
 func ConstructURL(env string, endpoint string) string {
