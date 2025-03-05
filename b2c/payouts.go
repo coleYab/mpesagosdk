@@ -55,7 +55,6 @@ func (b *B2CRequest) Validate(v *validator.Validate) error {
 	// if !slices.Contains(validCommands, b.CommandID) {
 	// 	return fmt.Errorf("unknown CommandID %v", string(b.CommandID))
 	// }
-
 	return utils.Validate(v, b)
 }
 

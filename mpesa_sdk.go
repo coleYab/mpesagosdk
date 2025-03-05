@@ -10,6 +10,8 @@ import (
 	"github.com/coleYab/mpesasdk/config"
 	"github.com/coleYab/mpesasdk/internal/auth"
 	"github.com/coleYab/mpesasdk/internal/client"
+	"github.com/coleYab/mpesasdk/internal/logger"
+	"github.com/coleYab/mpesasdk/internal/utils"
 	"github.com/coleYab/mpesasdk/transaction"
 	"github.com/coleYab/mpesasdk/types"
 	"github.com/go-playground/validator/v10"
@@ -19,18 +21,23 @@ type App struct {
 	cfg       *config.Config
 	client    *client.HttpClient
 	validator *validator.Validate
+    logger    *logger.Logger
 }
 
 // Creates a new mpesa App
 func New(cfg *config.Config) *App {
 	c := client.New(cfg)
 	v := validator.New()
-	return &App{cfg: cfg, client: c, validator: v}
+    l := logger.NewLogger(logger.ParseLevel(cfg.LogLevel))
+	return &App{cfg: cfg, client: c, validator: v, logger: l}
 }
 
 func executeRequest[T any](m *App, req types.MpesaRequest, endpoint, method string, authType string) (*T, error) {
 	// Validate the request
+    masked := utils.MaskEndpoint(endpoint)
+    m.logger.Info("making request", "method", method, "endpoint", masked)
 	if err := req.Validate(m.validator); err != nil {
+        m.logger.Info("validation failed", "error", err.Error())
 		return nil, err
 	}
 
@@ -38,6 +45,7 @@ func executeRequest[T any](m *App, req types.MpesaRequest, endpoint, method stri
 
 	response, err := m.client.ApiRequest(m.cfg.Enviroment, endpoint, method, req, authType)
 	if err != nil {
+        m.logger.Info("request failed", "error", err.Error())
 		return nil, err
 	}
 	defer response.Body.Close()
@@ -45,14 +53,17 @@ func executeRequest[T any](m *App, req types.MpesaRequest, endpoint, method stri
 	// Decode the response and type assert the response failing is impossible
 	res, err := req.DecodeResponse(response)
 	if err != nil {
+        m.logger.Info("request failed", "error", err.Error())
 		return nil, err
 	}
 
 	resC, ok := res.(T)
 	if !ok {
+        m.logger.Info("unable to decode the response")
 		return nil, fmt.Errorf("unable to decode success message")
 	}
 
+    m.logger.Info("request succeded", "method", method, "endpoint", masked)
 	return &resC, nil
 }
 

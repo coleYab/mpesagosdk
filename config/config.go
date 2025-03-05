@@ -59,12 +59,10 @@ func NewFromEnv() (*Config, error) {
 		Enviroment:        getEnv("ENVIROMENT", "SANDBOX"),
 	}
 
-	// TODO: take this out as validation error
 	if config.ConsumerKey == "" || config.ConsumerSecret == "" {
 		return nil, fmt.Errorf("consumer Secret or consumer key is requried")
 	}
 
-	// TODO: take this as a validation error
 	if config.Timeout == 0 {
 		return nil, fmt.Errorf("timout has to be greater than 0")
 	}
