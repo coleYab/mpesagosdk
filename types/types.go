@@ -2,7 +2,6 @@ package types
 
 type CommandId string
 
-// Constants for CommandId
 const (
 	CustomerPayBillOnlineCommand  CommandId = "CustomerPayBillOnline"
 	AccountBalanceCommand         CommandId = "AccountBalance"
@@ -26,6 +25,13 @@ const (
 type ResponseType string
 
 const (
-    CompletedResponse ResponseType = "Completed"
-    CancelledResponse ResponseType = "Cancelled"
+	CompletedResponse ResponseType = "Completed"
+	CancelledResponse ResponseType = "Cancelled"
+)
+
+type TransactionType string
+
+const (
+	CustomerPayBillOnlineTransaction  TransactionType = "CustomerPayBillOnline"
+	CustomerBuyGoodsOnlineTransaction TransactionType = "CustomerBuyGoodsOnline"
 )

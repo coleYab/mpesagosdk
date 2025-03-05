@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 
+	"github.com/coleYab/mpesasdk/internal/utils"
 	"github.com/coleYab/mpesasdk/types"
 	"github.com/go-playground/validator/v10"
 )
@@ -23,7 +24,6 @@ type B2CRequest struct {
 	OriginatorConversationID string          `json:"OriginatorConversationID" validate:"required"`
 }
 
-// DecodeResponse implements types.MpesaRequest.
 func (b *B2CRequest) DecodeResponse(res *http.Response) (types.MpesaResponse, error) {
 	bodyData, _ := io.ReadAll(res.Body)
 	defer res.Body.Close()
@@ -47,25 +47,16 @@ func (b *B2CRequest) DecodeResponse(res *http.Response) (types.MpesaResponse, er
 	return responseData, nil
 }
 
-// FillDefaults implements types.MpesaRequest.
 func (b *B2CRequest) FillDefaults() {}
 
-// Validate implements types.MpesaRequest.
 func (b *B2CRequest) Validate(v *validator.Validate) error {
-	if err := v.Struct(b); err != nil {
-		errCasted := err.(validator.ValidationErrors)
-		return errCasted
-	}
-
 	// TODO: check the command id
 	// validCommands := []types.CommandId{}
 	// if !slices.Contains(validCommands, b.CommandID) {
 	// 	return fmt.Errorf("unknown CommandID %v", string(b.CommandID))
 	// }
 
-	return nil
+	return utils.Validate(v, b)
 }
 
 type B2CSuccessResponse types.MpesaCommonResponse
-
-// TODO: Better error handling

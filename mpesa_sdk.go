@@ -6,6 +6,7 @@ import (
 
 	"github.com/coleYab/mpesasdk/account"
 	"github.com/coleYab/mpesasdk/b2c"
+	"github.com/coleYab/mpesasdk/c2b"
 	"github.com/coleYab/mpesasdk/config"
 	"github.com/coleYab/mpesasdk/internal/auth"
 	"github.com/coleYab/mpesasdk/internal/client"
@@ -27,7 +28,7 @@ func New(cfg *config.Config) *App {
 	return &App{cfg: cfg, client: c, validator: v}
 }
 
-func executeRequest(m *App, req types.MpesaRequest, endpoint, method string, authType string) (types.MpesaResponse, error) {
+func executeRequest[T any](m *App, req types.MpesaRequest, endpoint, method string, authType string) (*T, error) {
 	// Validate the request
 	if err := req.Validate(m.validator); err != nil {
 		return nil, err
@@ -42,65 +43,50 @@ func executeRequest(m *App, req types.MpesaRequest, endpoint, method string, aut
 	defer response.Body.Close()
 
 	// Decode the response and type assert the response failing is impossible
-	return req.DecodeResponse(response)
+	res, err := req.DecodeResponse(response)
+	if err != nil {
+		return nil, err
+	}
+
+	resC, ok := res.(T)
+	if !ok {
+		return nil, fmt.Errorf("unable to decode success message")
+	}
+
+	return &resC, nil
 }
 
 func (m *App) MakeAccountBalanceQuery(req account.AccountBalanceRequest) (*account.AccountBalanceSuccessResponse, error) {
 	endpoint := "/mpesa/accountbalance/v1/query"
-	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
-	if err != nil {
-		return nil, err
-	}
-
-	resC, ok := res.(account.AccountBalanceSuccessResponse)
-	if !ok {
-		return nil, fmt.Errorf("unable to decode success message")
-	}
-
-	return &resC, nil
+	return executeRequest[account.AccountBalanceSuccessResponse](m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
 }
 
 func (m *App) MakeB2CPaymentRequest(req b2c.B2CRequest) (*b2c.B2CSuccessResponse, error) {
 	endpoint := "/mpesa/b2c/v2/paymentrequest"
-	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
-	if err != nil {
-		return nil, err
-	}
-
-	resC, ok := res.(b2c.B2CSuccessResponse)
-	if !ok {
-		return nil, fmt.Errorf("unable to decode success message")
-	}
-
-	return &resC, nil
+	return executeRequest[b2c.B2CSuccessResponse](m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
 }
 
 func (m *App) MakeTransactionReversalRequest(req transaction.TransactionReversalRequest) (*transaction.TransactionReversalResponse, error) {
 	endpoint := "/mpesa/reversal/v1/request"
-	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
-	if err != nil {
-		return nil, err
-	}
-
-	resC, ok := res.(transaction.TransactionReversalResponse)
-	if !ok {
-		return nil, fmt.Errorf("unable to decode success message")
-	}
-
-	return &resC, nil
+	return executeRequest[transaction.TransactionReversalResponse](m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
 }
 
 func (m *App) MakeTransactionStatusQuery(req transaction.TransactionStatusRequest) (*transaction.TransactionStatusResponse, error) {
 	endpoint := "/mpesa/transactionstatus/v1/query"
-	res, err := executeRequest(m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
-	if err != nil {
-		return nil, err
-	}
+	return executeRequest[transaction.TransactionStatusResponse](m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
+}
 
-	resC, ok := res.(transaction.TransactionStatusResponse)
-	if !ok {
-		return nil, fmt.Errorf("unable to decode success message")
-	}
+func (m *App) USSDPaymentRequest(req c2b.USSDPaymentRequest) (*c2b.USSDSuccessResponse, error) {
+	endpoint := "/mpesa/stkpush/v3/processrequest"
+	return executeRequest[c2b.USSDSuccessResponse](m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
+}
 
-	return &resC, nil
+func (m *App) SimulateCustomerInitiatedPayment(req c2b.SimulateCustomerInititatedPayment) (*c2b.SimulatePaymentSuccessResponse, error) {
+	endpoint := "/mpesa/b2c/simulatetransaction/v1/request"
+	return executeRequest[c2b.SimulatePaymentSuccessResponse](m, &req, endpoint, http.MethodPost, auth.AuthTypeBearer)
+}
+
+func (m *App) RegisterNewURL(req c2b.RegisterC2BURLRequest) (*c2b.RegisterURLResponse, error) {
+	endpoint := "/v1/c2b-register-url/register?apikey=" + m.cfg.ConsumerKey
+	return executeRequest[c2b.RegisterURLResponse](m, &req, endpoint, http.MethodPost, auth.AuthTypeNone)
 }

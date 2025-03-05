@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"slices"
 
+	"github.com/coleYab/mpesasdk/internal/utils"
 	"github.com/coleYab/mpesasdk/types"
 	"github.com/go-playground/validator/v10"
 )
@@ -54,16 +55,10 @@ func (a *TransactionStatusRequest) FillDefaults() {
 }
 
 func (a *TransactionStatusRequest) Validate(v *validator.Validate) error {
-	if err := v.Struct(a); err != nil {
-		errCasted := err.(validator.ValidationErrors)
-		return errCasted
-	}
-
 	validIdentifiers := []types.IdentifierType{types.MsisdnIdentifierType, types.TillNumberIdentifierType, types.ShortCodeIdentifierType}
 	if !slices.Contains(validIdentifiers, a.IdentifierType) {
 		return fmt.Errorf("unkown identifier type %v", a.IdentifierType)
 	}
 
-	return nil
-
+	return utils.Validate(v, a)
 }
