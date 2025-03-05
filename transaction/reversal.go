@@ -52,7 +52,12 @@ func (a *TransactionReversalRequest) FillDefaults() {
 }
 
 func (a *TransactionReversalRequest) Validate(v *validator.Validate) error {
-	if err := v.Struct(a); err != nil {
+    if err := v.Struct(a); err != nil {
+		errCasted := err.(validator.ValidationErrors)
+		return errCasted
+	}
+
+    if err := v.Struct(a); err != nil {
 		errCasted := err.(validator.ValidationErrors)
 		return errCasted
 	}

@@ -22,3 +22,10 @@ const (
 	TillNumberIdentifierType IdentifierType = "2"
 	ShortCodeIdentifierType  IdentifierType = "4"
 )
+
+type ResponseType string
+
+const (
+    CompletedResponse ResponseType = "Completed"
+    CancelledResponse ResponseType = "Cancelled"
+)
