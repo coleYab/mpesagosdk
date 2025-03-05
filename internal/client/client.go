@@ -18,9 +18,9 @@ import (
 // HttpClient: this is a wrapper over the http client that will
 // provide simple http client functionalities for this sdk
 type HttpClient struct {
-	maxRetries uint
-	maxConn    uint
-	timeout    uint
+	maxRetries int
+	maxConn    int
+	timeout    int
 	client     *http.Client
 	token      *auth.AuthToken
 }
@@ -64,7 +64,7 @@ func (c *HttpClient) ApiRequest(env string, endpoint, method string, payload int
 	var res *http.Response
 	var err error
 
-	for attempt := uint(0); attempt <= c.maxRetries; attempt++ {
+	for attempt := 0; attempt <= c.maxRetries; attempt++ {
 		res, err = c.makeRequest(url, method, body, authType, env)
 		if err == nil || !isTimeoutError(err) {
 			break

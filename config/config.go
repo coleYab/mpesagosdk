@@ -9,9 +9,9 @@ import (
 // Config: a simple struct that will be used as a config
 // setup over all the functions of this sdk.
 type Config struct {
-	MaxConcurrentConn uint
-	MaxRetries        uint
-	Timeout           uint
+	MaxConcurrentConn int
+	MaxRetries        int
+	Timeout           int
 	ConsumerSecret    string
 	ConsumerKey       string
 	LogLevel          string
@@ -34,11 +34,11 @@ func getEnv(key string, fallback string) string {
 // otherwise it will return the fallback value that
 // is provided and it will convert the value of the
 // variables to integer
-func getEnvUint(key string, fallback uint) uint {
+func getEnvInt(key string, fallback int) int {
 	if v, ok := os.LookupEnv(key); ok {
-		res, err := strconv.ParseUint(v, 10, 32)
+		res, err := strconv.Atoi(v)
 		if err == nil { // is it valid other wise return fallback
-			return uint(res)
+			return res
 		}
 	}
 	return fallback
@@ -50,9 +50,9 @@ func getEnvUint(key string, fallback uint) uint {
 // this will let them to the users.
 func NewFromEnv() (*Config, error) {
 	config := &Config{
-		MaxConcurrentConn: getEnvUint("MAX_CONCURRENT_CONN", 1000),
-		MaxRetries:        getEnvUint("MAX_RETRIES", 3),
-		Timeout:           getEnvUint("TIMEOUT", 5),
+		MaxConcurrentConn: getEnvInt("MAX_CONCURRENT_CONN", 1000),
+		MaxRetries:        getEnvInt("MAX_RETRIES", 3),
+		Timeout:           getEnvInt("TIMEOUT", 5),
 		ConsumerSecret:    getEnv("CONSUMER_SECRET", ""),
 		ConsumerKey:       getEnv("CONSUMER_KEY", ""),
 		LogLevel:          getEnv("LOG_LEVEL", "DEBUG"),
