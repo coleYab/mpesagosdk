@@ -23,5 +23,3 @@ func TestGetToken_InvalidCredentials(t *testing.T) {
 		t.Fatalf("Expected an error, but got none")
 	}
 }
-
-

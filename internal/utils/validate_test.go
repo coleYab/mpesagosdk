@@ -70,5 +70,3 @@ func TestValidate_InvalidAge(t *testing.T) {
 	assert.Error(t, err)
 	assert.Contains(t, err.Error(), "Age")
 }
-
-
