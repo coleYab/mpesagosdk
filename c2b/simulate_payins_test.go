@@ -3,7 +3,7 @@ package c2b
 import (
 	"testing"
 
-	"github.com/coleYab/mpesasdk/types"
+	"github.com/coleYab/mpesagosdk/types"
 	"github.com/go-playground/validator/v10"
 )
 

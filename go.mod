@@ -1,4 +1,4 @@
-module github.com/coleYab/mpesasdk
+module github.com/coleYab/mpesagosdk
 
 go 1.23.2
 

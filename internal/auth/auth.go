@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/coleYab/mpesasdk/internal/utils"
+	"github.com/coleYab/mpesagosdk/internal/utils"
 )
 
 const (

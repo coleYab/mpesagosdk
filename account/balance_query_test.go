@@ -3,7 +3,7 @@ package account
 import (
 	"testing"
 
-	"github.com/coleYab/mpesasdk/types"
+	"github.com/coleYab/mpesagosdk/types"
 	"github.com/go-playground/validator/v10"
 	"github.com/stretchr/testify/assert"
 )

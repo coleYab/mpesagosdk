@@ -10,9 +10,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/coleYab/mpesasdk/config"
-	"github.com/coleYab/mpesasdk/internal/auth"
-	"github.com/coleYab/mpesasdk/internal/utils"
+	"github.com/coleYab/mpesagosdk/config"
+	"github.com/coleYab/mpesagosdk/internal/auth"
+	"github.com/coleYab/mpesagosdk/internal/utils"
 )
 
 // HttpClient: this is a wrapper over the http client that will

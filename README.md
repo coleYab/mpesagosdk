@@ -1,10 +1,10 @@
-# `mpesasdk`: The Best M-Pesa SDK for Golang
+# `mpesagosdk`: The Best M-Pesa SDK for Golang
 
 ![coverage](https://img.shields.io/badge/coverage-100.0%25-brightgreen)
 [![Go Reference](https://pkg.go.dev/badge/github.com/coleYab/mpesasdk.svg)](https://pkg.go.dev/github.com/coleYab/mpesasdk)
 [![Go Report Card](https://goreportcard.com/badge/github.com/coleYab/mpesasdk)](https://goreportcard.com/report/github.com/coleYab/mpesasdk)
 
-`mpesasdk` is a Go SDK for interacting with Safaricom's M-Pesa API. This SDK simplifies integration with M-Pesa's services, enabling operations such as B2C payments, C2B URL registration, USSD Push payments, transaction status queries, account balance checks, and transaction reversals.
+`mpesagosdk` is a Go SDK for interacting with Safaricom's M-Pesa API. This SDK simplifies integration with M-Pesa's services, enabling operations such as B2C payments, C2B URL registration, USSD Push payments, transaction status queries, account balance checks, and transaction reversals.
 
 ## Features
 
@@ -35,7 +35,7 @@
 To install the SDK, use the following command:
 
 ```bash
-go get github.com/coleYab/mpesasdk
+go get github.com/coleYab/mpesagosdk
 ```
 
 ## Quick Start
@@ -49,8 +49,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/coleYab/mpesasdk"
-	"github.com/coleYab/mpesasdk/config"
+	"github.com/coleYab/mpesagosdk"
+	"github.com/coleYab/mpesagosdk/config"
 )
 
 func main() {
@@ -61,7 +61,7 @@ func main() {
 	}
 
 	// Create a new Mpesa client
-	app := mpesasdk.New(cfg)
+	app := mpesagosdk.New(cfg)
 	fmt.Println("Application is created with: ", *app)
 }
 ```

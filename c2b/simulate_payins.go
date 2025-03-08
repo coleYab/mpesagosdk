@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"slices"
 
-	"github.com/coleYab/mpesasdk/internal/utils"
-	"github.com/coleYab/mpesasdk/types"
+	"github.com/coleYab/mpesagosdk/internal/utils"
+	"github.com/coleYab/mpesagosdk/types"
 	"github.com/go-playground/validator/v10"
 )
 

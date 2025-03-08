@@ -1,19 +1,19 @@
-package mpesasdk
+package mpesagosdk
 
 import (
 	"fmt"
 	"net/http"
 
-	"github.com/coleYab/mpesasdk/account"
-	"github.com/coleYab/mpesasdk/b2c"
-	"github.com/coleYab/mpesasdk/c2b"
-	"github.com/coleYab/mpesasdk/config"
-	"github.com/coleYab/mpesasdk/internal/auth"
-	"github.com/coleYab/mpesasdk/internal/client"
-	"github.com/coleYab/mpesasdk/internal/logger"
-	"github.com/coleYab/mpesasdk/internal/utils"
-	"github.com/coleYab/mpesasdk/transaction"
-	"github.com/coleYab/mpesasdk/types"
+	"github.com/coleYab/mpesagosdk/account"
+	"github.com/coleYab/mpesagosdk/b2c"
+	"github.com/coleYab/mpesagosdk/c2b"
+	"github.com/coleYab/mpesagosdk/config"
+	"github.com/coleYab/mpesagosdk/internal/auth"
+	"github.com/coleYab/mpesagosdk/internal/client"
+	"github.com/coleYab/mpesagosdk/internal/logger"
+	"github.com/coleYab/mpesagosdk/internal/utils"
+	"github.com/coleYab/mpesagosdk/transaction"
+	"github.com/coleYab/mpesagosdk/types"
 	"github.com/go-playground/validator/v10"
 )
 
