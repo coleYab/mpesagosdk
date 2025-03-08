@@ -22,7 +22,7 @@ type TransactionReversalRequest struct {
 	ResultURL                string               `json:"ResultURL" validate:"required,url"`
 	Remarks                  string               `json:"Remarks" validate:"omitempty,max=200"`
 	Occasion                 string               `json:"Occasion" validate:"omitempty,max=100"`
-	OriginatorConversationID string               `json:"OriginatorConversationID" validate:"required,min=10,max=100"`
+    OriginatorConversationID string               `json:"OriginatorConversationID" validate:"required"`
 }
 
 type TransactionReversalResponse types.MpesaCommonResponse

@@ -16,6 +16,18 @@ type Config struct {
 	ConsumerKey       string
 	LogLevel          string
 	Enviroment        string
+
+}
+
+func New(consumerSecret, consumerKey string, logLevel string) *Config {
+    return &Config{
+        ConsumerSecret: consumerSecret,
+        ConsumerKey: consumerKey,
+        LogLevel: logLevel,
+        Timeout: 5,
+        MaxRetries: 3,
+        MaxConcurrentConn: 1000,
+    }
 }
 
 // getEnv: this function is usefull to get the

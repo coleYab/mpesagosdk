@@ -19,18 +19,17 @@ func TestTransactionReversalRequestValidation(t *testing.T) {
 		{
 			name: "Valid Input",
 			req: TransactionReversalRequest{
-				Initiator:                "JohnDoe",
-				SecurityCredential:       "secureCredential123",
-				CommandID:                types.CommandId("ValidCommandID"),
-				TransactionID:            "validTransactionID123",
-				Amount:                   100,
-				PartyA:                   "ReceiverParty",
-				IdentifierType:           types.IdentifierType("MSISDN"), // Adjust this type based on your enum values
-				QueueTimeOutURL:          "https://example.com/timeout",
-				ResultURL:                "https://example.com/result",
-				Remarks:                  "Reversal for payment",
-				Occasion:                 "Refund",
+				Initiator:                "appuser",
+				TransactionID:            "LKXXXX1234",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				PartyA:                   "600000",
+				CommandID:                types.TransactionReversalCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
 				OriginatorConversationID: "conv12345",
+				Amount:                   1000,
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
 			},
 			wantErr: false,
 		},
@@ -39,57 +38,52 @@ func TestTransactionReversalRequestValidation(t *testing.T) {
 		{
 			name: "Missing Initiator",
 			req: TransactionReversalRequest{
-				SecurityCredential:       "secureCredential123",
-				CommandID:                types.CommandId("ValidCommandID"),
-				TransactionID:            "validTransactionID123",
-				Amount:                   100,
-				PartyA:                   "ReceiverParty",
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				QueueTimeOutURL:          "https://example.com/timeout",
-				ResultURL:                "https://example.com/result",
-				Remarks:                  "Reversal for payment",
-				Occasion:                 "Refund",
+				TransactionID:            "LKXXXX1234",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				PartyA:                   "600000",
+				CommandID:                types.TransactionReversalCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
 				OriginatorConversationID: "conv12345",
+				Amount:                   1000,
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
 			},
 			wantErr: true,
 		},
 
-		// 3. Invalid TransactionID
+		// 3. Missing TransactionID
 		{
-			name: "Invalid TransactionID (Too short)",
+			name: "Missing TransactionID",
 			req: TransactionReversalRequest{
-				Initiator:                "JohnDoe",
-				SecurityCredential:       "secureCredential123",
-				CommandID:                types.CommandId("ValidCommandID"),
-				TransactionID:            "short", // Too short, should be at least 10 characters
-				Amount:                   100,
-				PartyA:                   "ReceiverParty",
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				QueueTimeOutURL:          "https://example.com/timeout",
-				ResultURL:                "https://example.com/result",
-				Remarks:                  "Reversal for payment",
-				Occasion:                 "Refund",
+				Initiator:                "appuser",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				PartyA:                   "600000",
+				CommandID:                types.TransactionReversalCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
 				OriginatorConversationID: "conv12345",
+				Amount:                   1000,
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
 			},
 			wantErr: true,
 		},
 
-		// 4. Invalid Amount (Less than 1)
+		// 4. Missing SecurityCredential
 		{
-			name: "Invalid Amount (Less than 1)",
+			name: "Missing SecurityCredential",
 			req: TransactionReversalRequest{
-				Initiator:                "JohnDoe",
-				SecurityCredential:       "secureCredential123",
-				CommandID:                types.CommandId("ValidCommandID"),
-				TransactionID:            "validTransactionID123",
-				Amount:                   0, // Amount must be greater than 0
-				PartyA:                   "ReceiverParty",
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				QueueTimeOutURL:          "https://example.com/timeout",
-				ResultURL:                "https://example.com/result",
-				Remarks:                  "Reversal for payment",
-				Occasion:                 "Refund",
+				Initiator:                "appuser",
+				TransactionID:            "LKXXXX1234",
+				PartyA:                   "600000",
+				CommandID:                types.TransactionReversalCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
 				OriginatorConversationID: "conv12345",
+				Amount:                   1000,
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
 			},
 			wantErr: true,
 		},
@@ -98,97 +92,146 @@ func TestTransactionReversalRequestValidation(t *testing.T) {
 		{
 			name: "Missing PartyA",
 			req: TransactionReversalRequest{
-				Initiator:                "JohnDoe",
-				SecurityCredential:       "secureCredential123",
-				CommandID:                types.CommandId("ValidCommandID"),
-				TransactionID:            "validTransactionID123",
-				Amount:                   100,
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				QueueTimeOutURL:          "https://example.com/timeout",
-				ResultURL:                "https://example.com/result",
-				Remarks:                  "Reversal for payment",
-				Occasion:                 "Refund",
+				Initiator:                "appuser",
+				TransactionID:            "LKXXXX1234",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				CommandID:                types.TransactionReversalCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
 				OriginatorConversationID: "conv12345",
+				Amount:                   1000,
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
 			},
 			wantErr: true,
 		},
 
-		// 6. Invalid QueueTimeOutURL
+		// 6. Missing CommandID
 		{
-			name: "Invalid QueueTimeOutURL",
+			name: "Missing CommandID",
 			req: TransactionReversalRequest{
-				Initiator:                "JohnDoe",
-				SecurityCredential:       "secureCredential123",
-				CommandID:                types.CommandId("ValidCommandID"),
-				TransactionID:            "validTransactionID123",
-				Amount:                   100,
-				PartyA:                   "ReceiverParty",
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				QueueTimeOutURL:          "invalid-url", // Invalid URL format
-				ResultURL:                "https://example.com/result",
-				Remarks:                  "Reversal for payment",
-				Occasion:                 "Refund",
+				Initiator:                "appuser",
+				TransactionID:            "LKXXXX1234",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				PartyA:                   "600000",
+				IdentifierType:           types.ShortCodeIdentifierType,
 				OriginatorConversationID: "conv12345",
+				Amount:                   1000,
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
 			},
 			wantErr: true,
 		},
 
-		// 7. Invalid ResultURL
+		// 7. Missing IdentifierType
+		{
+			name: "Missing IdentifierType",
+			req: TransactionReversalRequest{
+				Initiator:                "appuser",
+				TransactionID:            "LKXXXX1234",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				PartyA:                   "600000",
+				CommandID:                types.TransactionReversalCommand,
+				OriginatorConversationID: "conv12345",
+				Amount:                   1000,
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+			},
+			wantErr: true,
+		},
+
+		// 8. Missing Amount
+		{
+			name: "Missing Amount",
+			req: TransactionReversalRequest{
+				Initiator:                "appuser",
+				TransactionID:            "LKXXXX1234",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				PartyA:                   "600000",
+				CommandID:                types.TransactionReversalCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				OriginatorConversationID: "conv12345",
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+			},
+			wantErr: true,
+		},
+
+		// 9. Invalid Amount (Less than 1)
+		{
+			name: "Invalid Amount (Less than 1)",
+			req: TransactionReversalRequest{
+				Initiator:                "appuser",
+				TransactionID:            "LKXXXX1234",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				PartyA:                   "600000",
+				CommandID:                types.TransactionReversalCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				OriginatorConversationID: "conv12345",
+				Amount:                   0, // Invalid amount, should be greater than 0
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+			},
+			wantErr: true,
+		},
+
+		// 10. Invalid ResultURL
 		{
 			name: "Invalid ResultURL",
 			req: TransactionReversalRequest{
-				Initiator:                "JohnDoe",
-				SecurityCredential:       "secureCredential123",
-				CommandID:                types.CommandId("ValidCommandID"),
-				TransactionID:            "validTransactionID123",
-				Amount:                   100,
-				PartyA:                   "ReceiverParty",
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				QueueTimeOutURL:          "https://example.com/timeout",
-				ResultURL:                "invalid-url", // Invalid URL format
-				Remarks:                  "Reversal for payment",
-				Occasion:                 "Refund",
+				Initiator:                "appuser",
+				TransactionID:            "LKXXXX1234",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				PartyA:                   "600000",
+				CommandID:                types.TransactionReversalCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
 				OriginatorConversationID: "conv12345",
+				Amount:                   1000,
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "invalid-url", // Invalid URL format
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
 			},
 			wantErr: true,
 		},
 
-		// 8. Remarks Too Long
+		// 11. Invalid QueueTimeOutURL
+		{
+			name: "Invalid QueueTimeOutURL",
+			req: TransactionReversalRequest{
+				Initiator:                "appuser",
+				TransactionID:            "LKXXXX1234",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				PartyA:                   "600000",
+				CommandID:                types.TransactionReversalCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				OriginatorConversationID: "conv12345",
+				Amount:                   1000,
+				Remarks:                  "Reversing transaction",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "invalid-url", // Invalid URL format
+			},
+			wantErr: true,
+		},
+
+		// 12. Remarks Too Long
 		{
 			name: "Remarks Too Long",
 			req: TransactionReversalRequest{
-				Initiator:                "JohnDoe",
-				SecurityCredential:       "secureCredential123",
-				CommandID:                types.CommandId("ValidCommandID"),
-				TransactionID:            "validTransactionID123",
-				Amount:                   100,
-				PartyA:                   "ReceiverParty",
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				QueueTimeOutURL:          "https://example.com/timeout",
-				ResultURL:                "https://example.com/result",
+				Initiator:                "appuser",
+				TransactionID:            "LKXXXX1234",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
+				PartyA:                   "600000",
+				CommandID:                types.TransactionReversalCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				OriginatorConversationID: "conv12345",
+				Amount:                   1000,
 				Remarks:                  string(make([]byte, 201)), // 201 characters, exceeds limit
-				Occasion:                 "Refund",
-				OriginatorConversationID: "conv12345",
-			},
-			wantErr: true,
-		},
-
-		// 9. Invalid Occasion
-		{
-			name: "Invalid Occasion",
-			req: TransactionReversalRequest{
-				Initiator:                "JohnDoe",
-				SecurityCredential:       "secureCredential123",
-				CommandID:                types.CommandId("ValidCommandID"),
-				TransactionID:            "validTransactionID123",
-				Amount:                   100,
-				PartyA:                   "ReceiverParty",
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				QueueTimeOutURL:          "https://example.com/timeout",
-				ResultURL:                "https://example.com/result",
-				Remarks:                  "Reversal for payment",
-				Occasion:                 string(make([]byte, 101)), // Occasion too long (max length is 100)
-				OriginatorConversationID: "conv12345",
+				ResultURL:                "https://yourdomain.com/result",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
 			},
 			wantErr: true,
 		},
@@ -202,7 +245,7 @@ func TestTransactionReversalRequestValidation(t *testing.T) {
 
 			// Check if we expect an error
 			if (err != nil) != tt.wantErr {
-				t.Errorf("expected error: %v, got: %v", tt.wantErr, err != nil)
+                t.Errorf("expected error: %v, got: %v, message: %v", tt.wantErr, err != nil, err.Error())
 			}
 		})
 	}

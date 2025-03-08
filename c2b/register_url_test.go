@@ -19,11 +19,11 @@ func TestRegisterC2BURLRequestValidation(t *testing.T) {
 		{
 			name: "Valid Input",
 			req: RegisterC2BURLRequest{
-				ShortCode:       "12345",
-				ResponseType:    types.ResponseType("SUCCESS"),
-				CommandID:       types.CommandId("RegisterC2B"),
-				ConfirmationURL: "https://example.com/confirmation",
-				ValidationURL:   "https://example.com/validation",
+				ShortCode:       "802000",
+				ResponseType:    types.ResponseType("Completed"),
+				CommandID:       types.CommandId("RegisterURL"),
+				ConfirmationURL: "https://www.myservice:8080/confirmation",
+				ValidationURL:   "https://www.myservice:8080/validation",
 			},
 			wantErr: false,
 		},
@@ -32,10 +32,10 @@ func TestRegisterC2BURLRequestValidation(t *testing.T) {
 		{
 			name: "Missing ShortCode",
 			req: RegisterC2BURLRequest{
-				ResponseType:    types.ResponseType("SUCCESS"),
-				CommandID:       types.CommandId("RegisterC2B"),
-				ConfirmationURL: "https://example.com/confirmation",
-				ValidationURL:   "https://example.com/validation",
+				ResponseType:    types.ResponseType("Completed"),
+				CommandID:       types.CommandId("RegisterURL"),
+				ConfirmationURL: "https://www.myservice:8080/confirmation",
+				ValidationURL:   "https://www.myservice:8080/validation",
 			},
 			wantErr: true,
 		},
@@ -44,11 +44,11 @@ func TestRegisterC2BURLRequestValidation(t *testing.T) {
 		{
 			name: "ShortCode Too Short",
 			req: RegisterC2BURLRequest{
-				ShortCode:       "1234", // Too short, should be at least 5 characters
-				ResponseType:    types.ResponseType("SUCCESS"),
-				CommandID:       types.CommandId("RegisterC2B"),
-				ConfirmationURL: "https://example.com/confirmation",
-				ValidationURL:   "https://example.com/validation",
+				ShortCode:       "802", // Too short, should be at least 5 characters
+				ResponseType:    types.ResponseType("Completed"),
+				CommandID:       types.CommandId("RegisterURL"),
+				ConfirmationURL: "https://www.myservice:8080/confirmation",
+				ValidationURL:   "https://www.myservice:8080/validation",
 			},
 			wantErr: true,
 		},
@@ -57,11 +57,11 @@ func TestRegisterC2BURLRequestValidation(t *testing.T) {
 		{
 			name: "ShortCode Too Long",
 			req: RegisterC2BURLRequest{
-				ShortCode:       "123456789012345678901", // Too long, should be at most 20 characters
-				ResponseType:    types.ResponseType("SUCCESS"),
-				CommandID:       types.CommandId("RegisterC2B"),
-				ConfirmationURL: "https://example.com/confirmation",
-				ValidationURL:   "https://example.com/validation",
+				ShortCode:       "80200012345678901234567890", // Too long, should be at most 20 characters
+				ResponseType:    types.ResponseType("Completed"),
+				CommandID:       types.CommandId("RegisterURL"),
+				ConfirmationURL: "https://www.myservice:8080/confirmation",
+				ValidationURL:   "https://www.myservice:8080/validation",
 			},
 			wantErr: true,
 		},
@@ -70,10 +70,10 @@ func TestRegisterC2BURLRequestValidation(t *testing.T) {
 		{
 			name: "Missing ResponseType",
 			req: RegisterC2BURLRequest{
-				ShortCode:       "12345",
-				CommandID:       types.CommandId("RegisterC2B"),
-				ConfirmationURL: "https://example.com/confirmation",
-				ValidationURL:   "https://example.com/validation",
+				ShortCode:       "802000",
+				CommandID:       types.CommandId("RegisterURL"),
+				ConfirmationURL: "https://www.myservice:8080/confirmation",
+				ValidationURL:   "https://www.myservice:8080/validation",
 			},
 			wantErr: true,
 		},
@@ -82,10 +82,10 @@ func TestRegisterC2BURLRequestValidation(t *testing.T) {
 		{
 			name: "Missing CommandID",
 			req: RegisterC2BURLRequest{
-				ShortCode:       "12345",
-				ResponseType:    types.ResponseType("SUCCESS"),
-				ConfirmationURL: "https://example.com/confirmation",
-				ValidationURL:   "https://example.com/validation",
+				ShortCode:       "802000",
+				ResponseType:    types.ResponseType("Completed"),
+				ConfirmationURL: "https://www.myservice:8080/confirmation",
+				ValidationURL:   "https://www.myservice:8080/validation",
 			},
 			wantErr: true,
 		},
@@ -94,11 +94,11 @@ func TestRegisterC2BURLRequestValidation(t *testing.T) {
 		{
 			name: "Invalid ConfirmationURL",
 			req: RegisterC2BURLRequest{
-				ShortCode:       "12345",
-				ResponseType:    types.ResponseType("SUCCESS"),
-				CommandID:       types.CommandId("RegisterC2B"),
+				ShortCode:       "802000",
+				ResponseType:    types.ResponseType("Completed"),
+				CommandID:       types.CommandId("RegisterURL"),
 				ConfirmationURL: "invalid-url", // Invalid URL
-				ValidationURL:   "https://example.com/validation",
+				ValidationURL:   "https://www.myservice:8080/validation",
 			},
 			wantErr: true,
 		},
@@ -107,10 +107,10 @@ func TestRegisterC2BURLRequestValidation(t *testing.T) {
 		{
 			name: "Invalid ValidationURL",
 			req: RegisterC2BURLRequest{
-				ShortCode:       "12345",
-				ResponseType:    types.ResponseType("SUCCESS"),
-				CommandID:       types.CommandId("RegisterC2B"),
-				ConfirmationURL: "https://example.com/confirmation",
+				ShortCode:       "802000",
+				ResponseType:    types.ResponseType("Completed"),
+				CommandID:       types.CommandId("RegisterURL"),
+				ConfirmationURL: "https://www.myservice:8080/confirmation",
 				ValidationURL:   "invalid-url", // Invalid URL
 			},
 			wantErr: true,
@@ -120,10 +120,10 @@ func TestRegisterC2BURLRequestValidation(t *testing.T) {
 		{
 			name: "Missing ConfirmationURL",
 			req: RegisterC2BURLRequest{
-				ShortCode:     "12345",
-				ResponseType:  types.ResponseType("SUCCESS"),
-				CommandID:     types.CommandId("RegisterC2B"),
-				ValidationURL: "https://example.com/validation",
+				ShortCode:     "802000",
+				ResponseType:  types.ResponseType("Completed"),
+				CommandID:     types.CommandId("RegisterURL"),
+				ValidationURL: "https://www.myservice:8080/validation",
 			},
 			wantErr: true,
 		},
@@ -132,10 +132,10 @@ func TestRegisterC2BURLRequestValidation(t *testing.T) {
 		{
 			name: "Missing ValidationURL",
 			req: RegisterC2BURLRequest{
-				ShortCode:       "12345",
-				ResponseType:    types.ResponseType("SUCCESS"),
-				CommandID:       types.CommandId("RegisterC2B"),
-				ConfirmationURL: "https://example.com/confirmation",
+				ShortCode:       "802000",
+				ResponseType:    types.ResponseType("Completed"),
+				CommandID:       types.CommandId("RegisterURL"),
+				ConfirmationURL: "https://www.myservice:8080/confirmation",
 			},
 			wantErr: true,
 		},

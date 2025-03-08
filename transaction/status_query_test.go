@@ -19,146 +19,145 @@ func TestTransactionStatusRequestValidation(t *testing.T) {
 		{
 			name: "Valid Input",
 			req: TransactionStatusRequest{
-				CommandID:                types.CommandId("ValidCommandID"),
-				IdentifierType:           types.IdentifierType("MSISDN"), // Adjust this type based on your enum values
-				Initiator:                "JohnDoe",
-				Occasion:                 "Payment inquiry",
-				OriginatorConversationID: "conv12345",
-				PartyA:                   "ReceiverParty",
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Transaction status check",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "secureCredential123",
-				TransactionID:            "validTransactionID123",
+				Initiator:                "apitest",
+				SecurityCredential:       "lMhf0UqE4ydeEDwpUskmPgkNDZnA6NLi7z3T1TQuWCkH3/ScW8pRRnobq/AcwFvbC961+zDMgOEYGm8Oivb7L/7Y9ED3lhR7pJvnH8B1wYis5ifdeeWI6XE2NSq8X1Tc7QB9Dg8SlPEud3tgloB2DlT+JIv3ebIl/J/8ihGVrq499bt1pz/EA2nzkCtGeHRNbEDxkqkEnbioV0OM//0bv4K++XyV6jUFlIIgkDkmcK6aOU8mPBHs2um9aP+Y+nTJaa6uHDudRFg0+3G6gt1zRCPs8AYbts2IebseBGfZKv5K6Lqk9/W8657gEkrDZE8Mi78MVianqHdY/8d6D9KKhw==",
+				CommandID:                types.TransactionStatusCommand,
+				TransactionID:            "0",
+				OriginatorConversationID: "AG-20190826-0000777ab7d848b9e721",
+				PartyA:                   "1020",
+				IdentifierType:           types.IdentifierType("4"),
+				ResultURL:                "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				QueueTimeOutURL:          "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				Remarks:                  "Trans Status",
+				Occasion:                 "Query trans status",
 			},
 			wantErr: false,
 		},
 
-		// 2. Missing CommandID
+		// 2. Missing Initiator
 		{
-			name: "Missing CommandID",
+			name: "Missing Initiator",
 			req: TransactionStatusRequest{
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				Initiator:                "JohnDoe",
-				Occasion:                 "Payment inquiry",
-				OriginatorConversationID: "conv12345",
-				PartyA:                   "ReceiverParty",
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Transaction status check",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "secureCredential123",
-				TransactionID:            "validTransactionID123",
+				SecurityCredential:       "lMhf0UqE4ydeEDwpUskmPgkNDZnA6NLi7z3T1TQuWCkH3/ScW8pRRnobq/AcwFvbC961+zDMgOEYGm8Oivb7L/7Y9ED3lhR7pJvnH8B1wYis5ifdeeWI6XE2NSq8X1Tc7QB9Dg8SlPEud3tgloB2DlT+JIv3ebIl/J/8ihGVrq499bt1pz/EA2nzkCtGeHRNbEDxkqkEnbioV0OM//0bv4K++XyV6jUFlIIgkDkmcK6aOU8mPBHs2um9aP+Y+nTJaa6uHDudRFg0+3G6gt1zRCPs8AYbts2IebseBGfZKv5K6Lqk9/W8657gEkrDZE8Mi78MVianqHdY/8d6D9KKhw==",
+				CommandID:                types.TransactionStatusCommand,
+				TransactionID:            "0",
+				OriginatorConversationID: "AG-20190826-0000777ab7d848b9e721",
+				PartyA:                   "1020",
+				IdentifierType:           types.IdentifierType("4"),
+				ResultURL:                "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				QueueTimeOutURL:          "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				Remarks:                  "Trans Status",
+				Occasion:                 "Query trans status",
 			},
 			wantErr: true,
 		},
 
-		// 3. Missing IdentifierType
-		{
-			name: "Missing IdentifierType",
-			req: TransactionStatusRequest{
-				CommandID:                types.CommandId("ValidCommandID"),
-				Initiator:                "JohnDoe",
-				Occasion:                 "Payment inquiry",
-				OriginatorConversationID: "conv12345",
-				PartyA:                   "ReceiverParty",
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Transaction status check",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "secureCredential123",
-				TransactionID:            "validTransactionID123",
-			},
-			wantErr: true,
-		},
-
-		// 4. Missing PartyA
-		{
-			name: "Missing PartyA",
-			req: TransactionStatusRequest{
-				CommandID:                types.CommandId("ValidCommandID"),
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				Initiator:                "JohnDoe",
-				Occasion:                 "Payment inquiry",
-				OriginatorConversationID: "conv12345",
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Transaction status check",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "secureCredential123",
-				TransactionID:            "validTransactionID123",
-			},
-			wantErr: true,
-		},
-
-		// 5. Invalid QueueTimeOutURL
-		{
-			name: "Invalid QueueTimeOutURL",
-			req: TransactionStatusRequest{
-				CommandID:                types.CommandId("ValidCommandID"),
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				Initiator:                "JohnDoe",
-				Occasion:                 "Payment inquiry",
-				OriginatorConversationID: "conv12345",
-				PartyA:                   "ReceiverParty",
-				QueueTimeOutURL:          "invalid-url", // Invalid URL
-				Remarks:                  "Transaction status check",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "secureCredential123",
-				TransactionID:            "validTransactionID123",
-			},
-			wantErr: true,
-		},
-
-		// 6. Invalid ResultURL
-		{
-			name: "Invalid ResultURL",
-			req: TransactionStatusRequest{
-				CommandID:                types.CommandId("ValidCommandID"),
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				Initiator:                "JohnDoe",
-				Occasion:                 "Payment inquiry",
-				OriginatorConversationID: "conv12345",
-				PartyA:                   "ReceiverParty",
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Transaction status check",
-				ResultURL:                "invalid-url", // Invalid URL
-				SecurityCredential:       "secureCredential123",
-				TransactionID:            "validTransactionID123",
-			},
-			wantErr: true,
-		},
-
-		// 7. Missing SecurityCredential
+		// 3. Missing SecurityCredential
 		{
 			name: "Missing SecurityCredential",
 			req: TransactionStatusRequest{
-				CommandID:                types.CommandId("ValidCommandID"),
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				Initiator:                "JohnDoe",
-				Occasion:                 "Payment inquiry",
-				OriginatorConversationID: "conv12345",
-				PartyA:                   "ReceiverParty",
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Transaction status check",
-				ResultURL:                "https://example.com/result",
-				TransactionID:            "validTransactionID123",
+				Initiator:                "apitest",
+				CommandID:                types.TransactionStatusCommand,
+				TransactionID:            "0",
+				OriginatorConversationID: "AG-20190826-0000777ab7d848b9e721",
+				PartyA:                   "1020",
+				IdentifierType:           types.IdentifierType("4"),
+				ResultURL:                "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				QueueTimeOutURL:          "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				Remarks:                  "Trans Status",
+				Occasion:                 "Query trans status",
 			},
 			wantErr: true,
 		},
 
-		// 8. Invalid TransactionID (Too Short)
+		// 4. Missing CommandID
 		{
-			name: "Invalid TransactionID (Too Short)",
+			name: "Missing CommandID",
 			req: TransactionStatusRequest{
-				CommandID:                types.CommandId("ValidCommandID"),
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				Initiator:                "JohnDoe",
-				Occasion:                 "Payment inquiry",
-				OriginatorConversationID: "conv12345",
-				PartyA:                   "ReceiverParty",
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Transaction status check",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "secureCredential123",
-				TransactionID:            "short", // Too short, should be at least 1 character
+				Initiator:                "apitest",
+				SecurityCredential:       "lMhf0UqE4ydeEDwpUskmPgkNDZnA6NLi7z3T1TQuWCkH3/ScW8pRRnobq/AcwFvbC961+zDMgOEYGm8Oivb7L/7Y9ED3lhR7pJvnH8B1wYis5ifdeeWI6XE2NSq8X1Tc7QB9Dg8SlPEud3tgloB2DlT+JIv3ebIl/J/8ihGVrq499bt1pz/EA2nzkCtGeHRNbEDxkqkEnbioV0OM//0bv4K++XyV6jUFlIIgkDkmcK6aOU8mPBHs2um9aP+Y+nTJaa6uHDudRFg0+3G6gt1zRCPs8AYbts2IebseBGfZKv5K6Lqk9/W8657gEkrDZE8Mi78MVianqHdY/8d6D9KKhw==",
+				TransactionID:            "0",
+				OriginatorConversationID: "AG-20190826-0000777ab7d848b9e721",
+				PartyA:                   "1020",
+				IdentifierType:           types.IdentifierType("4"),
+				ResultURL:                "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				QueueTimeOutURL:          "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				Remarks:                  "Trans Status",
+				Occasion:                 "Query trans status",
+			},
+			wantErr: true,
+		},
+
+		// 5. Missing TransactionID
+		{
+			name: "Missing TransactionID",
+			req: TransactionStatusRequest{
+				Initiator:                "apitest",
+				SecurityCredential:       "lMhf0UqE4ydeEDwpUskmPgkNDZnA6NLi7z3T1TQuWCkH3/ScW8pRRnobq/AcwFvbC961+zDMgOEYGm8Oivb7L/7Y9ED3lhR7pJvnH8B1wYis5ifdeeWI6XE2NSq8X1Tc7QB9Dg8SlPEud3tgloB2DlT+JIv3ebIl/J/8ihGVrq499bt1pz/EA2nzkCtGeHRNbEDxkqkEnbioV0OM//0bv4K++XyV6jUFlIIgkDkmcK6aOU8mPBHs2um9aP+Y+nTJaa6uHDudRFg0+3G6gt1zRCPs8AYbts2IebseBGfZKv5K6Lqk9/W8657gEkrDZE8Mi78MVianqHdY/8d6D9KKhw==",
+				CommandID:                types.TransactionStatusCommand,
+				OriginatorConversationID: "AG-20190826-0000777ab7d848b9e721",
+				PartyA:                   "1020",
+				IdentifierType:           types.IdentifierType("4"),
+				ResultURL:                "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				QueueTimeOutURL:          "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				Remarks:                  "Trans Status",
+				Occasion:                 "Query trans status",
+			},
+			wantErr: true,
+		},
+
+		// 6. Missing PartyA
+		{
+			name: "Missing PartyA",
+			req: TransactionStatusRequest{
+				Initiator:                "apitest",
+				SecurityCredential:       "lMhf0UqE4ydeEDwpUskmPgkNDZnA6NLi7z3T1TQuWCkH3/ScW8pRRnobq/AcwFvbC961+zDMgOEYGm8Oivb7L/7Y9ED3lhR7pJvnH8B1wYis5ifdeeWI6XE2NSq8X1Tc7QB9Dg8SlPEud3tgloB2DlT+JIv3ebIl/J/8ihGVrq499bt1pz/EA2nzkCtGeHRNbEDxkqkEnbioV0OM//0bv4K++XyV6jUFlIIgkDkmcK6aOU8mPBHs2um9aP+Y+nTJaa6uHDudRFg0+3G6gt1zRCPs8AYbts2IebseBGfZKv5K6Lqk9/W8657gEkrDZE8Mi78MVianqHdY/8d6D9KKhw==",
+				CommandID:                types.TransactionStatusCommand,
+				TransactionID:            "0",
+				OriginatorConversationID: "AG-20190826-0000777ab7d848b9e721",
+				IdentifierType:           types.IdentifierType("4"),
+				ResultURL:                "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				QueueTimeOutURL:          "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				Remarks:                  "Trans Status",
+				Occasion:                 "Query trans status",
+			},
+			wantErr: true,
+		},
+
+		// 7. Invalid ResultURL
+		{
+			name: "Invalid ResultURL",
+			req: TransactionStatusRequest{
+				Initiator:                "apitest",
+				SecurityCredential:       "lMhf0UqE4ydeEDwpUskmPgkNDZnA6NLi7z3T1TQuWCkH3/ScW8pRRnobq/AcwFvbC961+zDMgOEYGm8Oivb7L/7Y9ED3lhR7pJvnH8B1wYis5ifdeeWI6XE2NSq8X1Tc7QB9Dg8SlPEud3tgloB2DlT+JIv3ebIl/J/8ihGVrq499bt1pz/EA2nzkCtGeHRNbEDxkqkEnbioV0OM//0bv4K++XyV6jUFlIIgkDkmcK6aOU8mPBHs2um9aP+Y+nTJaa6uHDudRFg0+3G6gt1zRCPs8AYbts2IebseBGfZKv5K6Lqk9/W8657gEkrDZE8Mi78MVianqHdY/8d6D9KKhw==",
+				CommandID:                types.TransactionStatusCommand,
+				TransactionID:            "0",
+				OriginatorConversationID: "AG-20190826-0000777ab7d848b9e721",
+				PartyA:                   "1020",
+				IdentifierType:           types.IdentifierType("4"),
+				ResultURL:                "invalid-url", // Invalid URL
+				QueueTimeOutURL:          "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				Remarks:                  "Trans Status",
+				Occasion:                 "Query trans status",
+			},
+			wantErr: true,
+		},
+
+		// 8. Invalid QueueTimeOutURL
+		{
+			name: "Invalid QueueTimeOutURL",
+			req: TransactionStatusRequest{
+				Initiator:                "apitest",
+				SecurityCredential:       "lMhf0UqE4ydeEDwpUskmPgkNDZnA6NLi7z3T1TQuWCkH3/ScW8pRRnobq/AcwFvbC961+zDMgOEYGm8Oivb7L/7Y9ED3lhR7pJvnH8B1wYis5ifdeeWI6XE2NSq8X1Tc7QB9Dg8SlPEud3tgloB2DlT+JIv3ebIl/J/8ihGVrq499bt1pz/EA2nzkCtGeHRNbEDxkqkEnbioV0OM//0bv4K++XyV6jUFlIIgkDkmcK6aOU8mPBHs2um9aP+Y+nTJaa6uHDudRFg0+3G6gt1zRCPs8AYbts2IebseBGfZKv5K6Lqk9/W8657gEkrDZE8Mi78MVianqHdY/8d6D9KKhw==",
+				CommandID:                types.TransactionStatusCommand,
+				TransactionID:            "0",
+				OriginatorConversationID: "AG-20190826-0000777ab7d848b9e721",
+				PartyA:                   "1020",
+				IdentifierType:           types.IdentifierType("4"),
+				ResultURL:                "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				QueueTimeOutURL:          "invalid-url", // Invalid URL
+				Remarks:                  "Trans Status",
+				Occasion:                 "Query trans status",
 			},
 			wantErr: true,
 		},
@@ -167,17 +166,17 @@ func TestTransactionStatusRequestValidation(t *testing.T) {
 		{
 			name: "Remarks Too Long",
 			req: TransactionStatusRequest{
-				CommandID:                types.CommandId("ValidCommandID"),
-				IdentifierType:           types.IdentifierType("MSISDN"),
-				Initiator:                "JohnDoe",
-				Occasion:                 "Payment inquiry",
-				OriginatorConversationID: "conv12345",
-				PartyA:                   "ReceiverParty",
-				QueueTimeOutURL:          "https://example.com/timeout",
+				Initiator:                "apitest",
+				SecurityCredential:       "lMhf0UqE4ydeEDwpUskmPgkNDZnA6NLi7z3T1TQuWCkH3/ScW8pRRnobq/AcwFvbC961+zDMgOEYGm8Oivb7L/7Y9ED3lhR7pJvnH8B1wYis5ifdeeWI6XE2NSq8X1Tc7QB9Dg8SlPEud3tgloB2DlT+JIv3ebIl/J/8ihGVrq499bt1pz/EA2nzkCtGeHRNbEDxkqkEnbioV0OM//0bv4K++XyV6jUFlIIgkDkmcK6aOU8mPBHs2um9aP+Y+nTJaa6uHDudRFg0+3G6gt1zRCPs8AYbts2IebseBGfZKv5K6Lqk9/W8657gEkrDZE8Mi78MVianqHdY/8d6D9KKhw==",
+				CommandID:                types.TransactionStatusCommand,
+				TransactionID:            "0",
+				OriginatorConversationID: "AG-20190826-0000777ab7d848b9e721",
+				PartyA:                   "1020",
+				IdentifierType:           types.IdentifierType("4"),
+				ResultURL:                "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
+				QueueTimeOutURL:          "https://webhook.site/7ed4b055-fa4d-45f3-ae1f-328c52aa4d7d",
 				Remarks:                  string(make([]byte, 501)), // 501 characters, exceeds 500 character limit
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "secureCredential123",
-				TransactionID:            "validTransactionID123",
+				Occasion:                 "Query trans status",
 			},
 			wantErr: true,
 		},

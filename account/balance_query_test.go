@@ -9,8 +9,7 @@ import (
 )
 
 func TestAccountBalanceRequestValidation(t *testing.T) {
-	validate := validator.New()
-
+    v := validator.New()
 	tests := []struct {
 		name    string
 		req     AccountBalanceRequest
@@ -19,14 +18,14 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 		{
 			name: "Valid Input",
 			req: AccountBalanceRequest{
-				CommandID:                types.CommandId("validCommandID"),
-				IdentifierType:           types.IdentifierType("validIdentifierType"),
-				Initiator:                "validInitiator",
-				PartyA:                   12345,
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Valid remarks",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "validSecurityCredential",
+				CommandID:                types.AccountBalanceCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				Initiator:                "apiuser",
+				PartyA:                   600000,
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+				Remarks:                  "Salary Payment",
+				ResultURL:                "https://yourdomain.com/result",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
 				OriginatorConversationID: "validOriginatorConversationID",
 			},
 			wantErr: false,
@@ -34,13 +33,13 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 		{
 			name: "Missing CommandID",
 			req: AccountBalanceRequest{
-				IdentifierType:           types.IdentifierType("validIdentifierType"),
-				Initiator:                "validInitiator",
-				PartyA:                   12345,
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Valid remarks",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "validSecurityCredential",
+				IdentifierType:           types.ShortCodeIdentifierType,
+				Initiator:                "apiuser",
+				PartyA:                   600000,
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+				Remarks:                  "Salary Payment",
+				ResultURL:                "https://yourdomain.com/result",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
 				OriginatorConversationID: "validOriginatorConversationID",
 			},
 			wantErr: true,
@@ -48,14 +47,14 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 		{
 			name: "Invalid IdentifierType",
 			req: AccountBalanceRequest{
-				CommandID:                types.CommandId("validCommandID"),
+				CommandID:                types.AccountBalanceCommand,
 				IdentifierType:           types.IdentifierType("invalidIdentifierType"),
-				Initiator:                "validInitiator",
-				PartyA:                   12345,
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Valid remarks",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "validSecurityCredential",
+				Initiator:                "apiuser",
+				PartyA:                   600000,
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+				Remarks:                  "Salary Payment",
+				ResultURL:                "https://yourdomain.com/result",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
 				OriginatorConversationID: "validOriginatorConversationID",
 			},
 			wantErr: true,
@@ -63,14 +62,14 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 		{
 			name: "Initiator Too Short",
 			req: AccountBalanceRequest{
-				CommandID:                types.CommandId("validCommandID"),
-				IdentifierType:           types.IdentifierType("validIdentifierType"),
+				CommandID:                types.AccountBalanceCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
 				Initiator:                "", // Empty string
-				PartyA:                   12345,
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Valid remarks",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "validSecurityCredential",
+				PartyA:                   600000,
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+				Remarks:                  "Salary Payment",
+				ResultURL:                "https://yourdomain.com/result",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
 				OriginatorConversationID: "validOriginatorConversationID",
 			},
 			wantErr: true,
@@ -78,14 +77,14 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 		{
 			name: "PartyA Less Than 1",
 			req: AccountBalanceRequest{
-				CommandID:                types.CommandId("validCommandID"),
-				IdentifierType:           types.IdentifierType("validIdentifierType"),
-				Initiator:                "validInitiator",
+				CommandID:                types.AccountBalanceCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				Initiator:                "apiuser",
 				PartyA:                   0, // Invalid value
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Valid remarks",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "validSecurityCredential",
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+				Remarks:                  "Salary Payment",
+				ResultURL:                "https://yourdomain.com/result",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
 				OriginatorConversationID: "validOriginatorConversationID",
 			},
 			wantErr: true,
@@ -93,14 +92,14 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 		{
 			name: "Invalid QueueTimeOutURL",
 			req: AccountBalanceRequest{
-				CommandID:                types.CommandId("validCommandID"),
-				IdentifierType:           types.IdentifierType("validIdentifierType"),
-				Initiator:                "validInitiator",
-				PartyA:                   12345,
+				CommandID:                types.AccountBalanceCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				Initiator:                "apiuser",
+				PartyA:                   600000,
 				QueueTimeOutURL:          "invalid-url", // Invalid URL
-				Remarks:                  "Valid remarks",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "validSecurityCredential",
+				Remarks:                  "Salary Payment",
+				ResultURL:                "https://yourdomain.com/result",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
 				OriginatorConversationID: "validOriginatorConversationID",
 			},
 			wantErr: true,
@@ -108,14 +107,14 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 		{
 			name: "Invalid ResultURL",
 			req: AccountBalanceRequest{
-				CommandID:                types.CommandId("validCommandID"),
-				IdentifierType:           types.IdentifierType("validIdentifierType"),
-				Initiator:                "validInitiator",
-				PartyA:                   12345,
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Valid remarks",
+				CommandID:                types.AccountBalanceCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				Initiator:                "apiuser",
+				PartyA:                   600000,
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+				Remarks:                  "Salary Payment",
 				ResultURL:                "invalid-url", // Invalid URL
-				SecurityCredential:       "validSecurityCredential",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
 				OriginatorConversationID: "validOriginatorConversationID",
 			},
 			wantErr: true,
@@ -123,13 +122,13 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 		{
 			name: "SecurityCredential Too Short",
 			req: AccountBalanceRequest{
-				CommandID:                types.CommandId("validCommandID"),
-				IdentifierType:           types.IdentifierType("validIdentifierType"),
-				Initiator:                "validInitiator",
-				PartyA:                   12345,
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Valid remarks",
-				ResultURL:                "https://example.com/result",
+				CommandID:                types.AccountBalanceCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				Initiator:                "apiuser",
+				PartyA:                   600000,
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+				Remarks:                  "Salary Payment",
+				ResultURL:                "https://yourdomain.com/result",
 				SecurityCredential:       "short", // Less than 8 characters
 				OriginatorConversationID: "validOriginatorConversationID",
 			},
@@ -138,14 +137,14 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 		{
 			name: "Remarks Too Long",
 			req: AccountBalanceRequest{
-				CommandID:                types.CommandId("validCommandID"),
-				IdentifierType:           types.IdentifierType("validIdentifierType"),
-				Initiator:                "validInitiator",
-				PartyA:                   12345,
-				QueueTimeOutURL:          "https://example.com/timeout",
+				CommandID:                types.AccountBalanceCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				Initiator:                "apiuser",
+				PartyA:                   600000,
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
 				Remarks:                  string(make([]byte, 501)), // 501 characters
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "validSecurityCredential",
+				ResultURL:                "https://yourdomain.com/result",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
 				OriginatorConversationID: "validOriginatorConversationID",
 			},
 			wantErr: true,
@@ -153,14 +152,14 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 		{
 			name: "Missing OriginatorConversationID",
 			req: AccountBalanceRequest{
-				CommandID:                types.CommandId("validCommandID"),
-				IdentifierType:           types.IdentifierType("validIdentifierType"),
-				Initiator:                "validInitiator",
-				PartyA:                   12345,
-				QueueTimeOutURL:          "https://example.com/timeout",
-				Remarks:                  "Valid remarks",
-				ResultURL:                "https://example.com/result",
-				SecurityCredential:       "validSecurityCredential",
+				CommandID:                types.AccountBalanceCommand,
+				IdentifierType:           types.ShortCodeIdentifierType,
+				Initiator:                "apiuser",
+				PartyA:                   600000,
+				QueueTimeOutURL:          "https://yourdomain.com/timeout",
+				Remarks:                  "Salary Payment",
+				ResultURL:                "https://yourdomain.com/result",
+				SecurityCredential:       "PU8f0AptZr16W28uzZy8+Ke4ww+HDk6/WXGurNcKREm7ihjUHL0TGWBxWbIzhftZkEms6LHhZlzh36LtAjLLxLiCRXHIW5Fv6oqOIsrl9pMw0F5pfEPMzDEXNlotjMpaFcEFS1GpnHWkIOaguXMNaf0Uev49rjzER495LMP3Z9EIPJmOuOI5QUZ6h3udctyyKIeUBdab0vf0zATY66Zm9XZc2CHHx3NsyU7i680s1OWreZ7SobuXsEyjZlh4hb1G0HNICFt/kp0PZN8Pt09qBeLX5BE1Tre0bb4v66AatJEuXQA39VJCZ6A+UldKyb5HLsdQHn+eZvd/K2yLtwpCxA==",
 				OriginatorConversationID: "", // Missing
 			},
 			wantErr: true,
@@ -169,7 +168,7 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			err := validate.Struct(tt.req)
+            err := tt.req.Validate(v)
 			if tt.wantErr {
 				assert.Error(t, err)
 			} else {
