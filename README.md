@@ -6,6 +6,9 @@
 
 `mpesagosdk` is a Go SDK for interacting with Safaricom's M-Pesa API. This SDK simplifies integration with M-Pesa's services, enabling operations such as B2C payments, C2B URL registration, USSD Push payments, transaction status queries, account balance checks, and transaction reversals.
 
+## Documentation
+For further description about the fields you can access them [here](https://developer.safaricom.et/documentation)
+
 ## Features
 
 - **B2C Payments**: Transfer funds from a business account to a customer account.
@@ -26,7 +29,7 @@
   - [Transaction Status Query](#transaction-status-query)
   - [Account Balance Query](#account-balance-query)
   - [Transaction Reversal](#transaction-reversal)
-  - [USSD Push Payment](#stk-push-payment)
+  - [USSD Push Payment](#ussd-push-payment)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -64,6 +67,25 @@ func main() {
 	app := mpesagosdk.New(cfg)
 	fmt.Println("Application is created with: ", *app)
 }
+```
+
+
+## Configuration
+To configure this application you can either create the config struct by yourself or you can create .env file
+this package depends on [joho/godotenv/autoload](https://github.com/joho/godotenv/) package this will load the .env
+to the program.
+Simple .env looks like this
+```bash
+# Required credentials
+CONSUMER_SECRET=your_consumer_secret_here
+CONSUMER_KEY=your_consumer_key_here
+
+# Optional settings with default values if not provided
+MAX_CONCURRENT_CONN=1000         # Optional: defaults to 1000
+MAX_RETRIES=3                    # Optional: defaults to 3
+TIMEOUT=5                        # Optional: defaults to 5
+LOG_LEVEL=DEBUG                  # Optional: defaults to DEBUG
+ENVIROMENT=SANDBOX               # Optional: defaults to SANDBOX
 ```
 
 ## Examples
