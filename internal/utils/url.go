@@ -27,7 +27,6 @@ import "regexp"
 const ProductionURL = "https://api.safaricom.et"
 const SandboxURL = "https://apisandbox.safaricom.et"
 
-
 // ConstructURL builds and returns the complete URL by combining the base URL 
 // (based on the environment) and the provided endpoint.
 //
@@ -50,10 +49,10 @@ func ConstructURL(env string, endpoint string) string {
 // baseUrl: determines and returns the correct base URL based on the environment.
 //
 // Parameters:
-// - env: The environment, typically "PRODUCTION" for production or anything else for sandbox.
+// 	- env: The environment, typically "PRODUCTION" for production or anything else for sandbox.
 //
 // Returns:
-// - A string representing the base URL for the given environment.
+// 	- A string representing the base URL for the given environment.
 //
 // Example usage:
 //     url := baseUrl("PRODUCTION")
@@ -73,14 +72,14 @@ func baseUrl(env string) string {
 // in logs or error messages.
 //
 // Parameters:
-// - endpoint: The endpoint string potentially containing an API key.
+// 	- endpoint: The endpoint string potentially containing an API key.
 //
 // Returns:
-// - A string with the API key masked with asterisks.
+// 	- A string with the API key masked with asterisks.
 //
 // Example usage:
-//     masked := MaskEndpoint("/v1/endpoint?apikey=12345abcd")
-//     fmt.Println(masked)  
+//    	masked := MaskEndpoint("/v1/endpoint?apikey=12345abcd")
+//    	fmt.Println(masked)  
 // 
 // Output: /v1/endpoint?apikey=*****************
 func MaskEndpoint(endpoint string) string {
