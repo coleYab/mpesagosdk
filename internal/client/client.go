@@ -1,35 +1,37 @@
 // Package client provides a wrapper around the HTTP client to facilitate making
 // API requests for the mpesagosdk.
-
+// 
 // This package provides an `HttpClient` struct that manages HTTP requests, including
-// handling retries, authentication (using Bearer or Basic Auth), and configuring 
+// handling retries, authentication (using Bearer or Basic Auth), and configuring
 // timeouts and maximum idle concurrent connections that your application has to keep.
-
+// 
 // Key Features:
-// - Handles HTTP requests with retries in case of timeouts.
-// - Supports multiple authentication schemes: Bearer and Basic.
-// - Provides a configurable client with timeout and maximum concurrent connections.
-// - Handles exponential backoff for retries to avoid server overload.
-
-// This package makes it easier to interact with an external API while managing 
+//	- Handles HTTP requests with retries in case of timeouts.
+//	- Supports multiple authentication schemes: Bearer and Basic.
+//	- Provides a configurable client with timeout and maximum concurrent connections.
+//	- Handles exponential backoff for retries to avoid server overload.
+// 
+// This package makes it easier to interact with an external API while managing
 // important aspects of HTTP communication, such as retries, authentication, and connection limits.
-
+// 
 // Example usage:
-//     cfg := &config.Config{
-//         ConsumerKey:      "consumer-key",
-//         ConsumerSecret:   "consumer-secret",
-//         MaxRetries:       3,
-//         MaxConcurrentConn: 10,
-//         Timeout:           30,
-//     }
-    
-//     client := client.New(cfg)
-//     response, err := client.ApiRequest("PRODUCTION", "/v1/resource", "GET", nil, auth.AuthTypeBearer)
-//     if err != nil {
-//         log.Fatalf("API request failed: %v", err)
-//     }
-//     defer response.Body.Close()
-//     fmt.Println("Response:", response.Status)
+//	cfg := &config.Config{
+//	    ConsumerKey:      "consumer-key",
+//	    ConsumerSecret:   "consumer-secret",
+//	    MaxRetries:       3,
+//	    MaxConcurrentConn: 10,
+//	    Timeout:           30,
+//	}
+// 
+//	client := client.New(cfg)
+//	response, err := client.ApiRequest("PRODUCTION", "/v1/resource", "GET", nil, auth.AuthTypeBearer)
+//
+//	if err != nil {
+//	    log.Fatalf("API request failed: %v", err)
+//	}
+//
+//	defer response.Body.Close()
+//	fmt.Println("Response:", response.Status)
 package client
 
 import (
@@ -88,12 +90,12 @@ func New(cfg *config.Config) *HttpClient {
 // and returns the HTTP response or an error. The function uses the provided `authType`
 // to determine the authorization method (Bearer or Basic).
 //
-// `env` specifies the environment (e.g., "PRODUTION" or "SANDBOX"), and `authType` 
+// 	- `env` specifies the environment (e.g., "PRODUTION" or "SANDBOX"), and `authType`
 // specifies the authentication scheme to be used (either `AuthTypeBearer` or `AuthTypeBasic`).
-// 
-//	Retries: retries are only done if the issue is timeout error or context DeadlineExceeded 
-//  errors we don't want to retiry other errors because it is useless in to retry in most 
-// 	of the other cases. We are using (Exponential backoff)[https://en.wikipedia.org/wiki/Exponential_backoff]
+//
+//	-	Retries: retries are only done if the issue is timeout error or context DeadlineExceeded
+//	 errors. We don't want to retiry other errors because it is useless in to retry in most
+//	 of the other cases. We are using (Exponential backoff)[https://en.wikipedia.org/wiki/Exponential_backoff]
 //
 // Returns the HTTP response and an error, if any.
 func (c *HttpClient) ApiRequest(env string, endpoint, method string, payload interface{}, authType string) (*http.Response, error) {
@@ -110,7 +112,6 @@ func (c *HttpClient) ApiRequest(env string, endpoint, method string, payload int
 
 	var res *http.Response
 	var err error
-
 
 	// Retries
 	for attempt := 0; attempt <= c.maxRetries; attempt++ {
