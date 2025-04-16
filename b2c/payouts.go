@@ -50,11 +50,6 @@ func (b *B2CRequest) DecodeResponse(res *http.Response) (types.MpesaResponse, er
 func (b *B2CRequest) FillDefaults() {}
 
 func (b *B2CRequest) Validate(v *validator.Validate) error {
-	// TODO: check the command id
-	// validCommands := []types.CommandId{}
-	// if !slices.Contains(validCommands, b.CommandID) {
-	// 	return fmt.Errorf("unknown CommandID %v", string(b.CommandID))
-	// }
 	return utils.Validate(v, b)
 }
 

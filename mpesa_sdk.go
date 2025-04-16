@@ -83,13 +83,13 @@ func New(cfg *config.Config) *App {
 	return &App{cfg: cfg, client: c, validator: v, logger: l}
 }
 
-// executeRequest: this is a function that will act as an orchestrator that can help us in determinig what 
+// executeRequest: this is a function that will act as an orchestrator that can help us in determinig what
 // to do with the request. It has three main steps.
 //	1. Validation: here it will use the validation is defined at the types.MpesaRequest struct
 // 	2. FillDefault: it will fill the default data that is unique and default to each request
 // 	3. Api request: then it will utilize the clients ability to send ApiRequest and sends an api request
 // 	4. DecodeResponse: finally it will decode the response that comes from the mpesa.
-// 
+//
 // Returns:
 // 	- T: generic type that has to be specified on success
 // 	- error: on failure.
@@ -238,7 +238,7 @@ func (m *App) USSDPaymentRequest(req c2b.USSDPaymentRequest) (*c2b.USSDSuccessRe
 // Warning:
 // 	- This endpoint may generate some weird behaviours due to unstablity please contact the
 // mpesa developer team to fix this issue if you really need that feature out there.
-// 
+//
 // Returns:
 // 	- A pointer to the `SimulatePaymentSuccessResponse` struct on a successful request.
 // 	- An error if the request fails or is invalid.

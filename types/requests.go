@@ -88,7 +88,6 @@ type MpesaErrorResponse struct {
 	ErrorMessage string `json:"errorMessage"`
 }
 
-// TODO: handle the error response please do that efficently
 func (e *MpesaErrorResponse) Error() string {
 	return fmt.Sprintf("request with id=%v failed with code=%v, due to %v", e.RequestId, e.ErrorCode, e.ErrorMessage)
 }

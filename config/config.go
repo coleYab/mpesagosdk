@@ -81,7 +81,7 @@ func New(consumerSecret, consumerKey string, logLevel string) *Config {
 	}
 }
 
-// getEnv is a helper function that retrieves an environment variable's value
+// getEnv: is a helper function that retrieves an environment variable's value
 // or returns the provided fallback value if the environment variable is not set.
 //
 // Parameters:
@@ -97,7 +97,7 @@ func getEnv(key string, fallback string) string {
 	return fallback
 }
 
-// getEnvInt is a helper function that retrieves an environment variable's value,
+// getEnvInt: is a helper function that retrieves an environment variable's value,
 // converts it to an integer, and returns it. If the conversion fails or the variable
 // is not set, it returns the provided fallback value.
 //
