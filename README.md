@@ -7,7 +7,7 @@
 `mpesagosdk` is a Go SDK for interacting with Safaricom's M-Pesa API. This SDK simplifies integration with M-Pesa's services, enabling operations such as B2C payments, C2B URL registration, USSD Push payments, transaction status queries, account balance checks, and transaction reversals.
 
 ## Documentation
-For further description about the fields you can access them [here](https://developer.safaricom.et/documentation)
+For further detailed documentation and api keys you can access it [here.](https://developer.safaricom.et/documentation)
 
 ## Features
 
