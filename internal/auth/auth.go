@@ -41,6 +41,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"sync"
 
 	"github.com/coleYab/mpesagosdk/internal/utils"
 )
@@ -57,6 +58,7 @@ const (
 // AuthToken stores authentication credentials and access token metadata.
 // It manages fetching and refreshing the authorization token.
 type AuthToken struct {
+	locker 		   *sync.Mutex
 	consumerKey    string
 	consumerSecret string
 	createdAt      time.Time
@@ -67,9 +69,11 @@ type AuthToken struct {
 // New initializes and returns a new instance of AuthToken using the
 // provided consumerKey and consumerSecret.
 func New(consumerKey, consumerSecret string) *AuthToken {
+	locker := &sync.Mutex{}
 	token := &AuthToken{
 		consumerKey:    consumerKey,
 		consumerSecret: consumerSecret,
+		locker:			locker,
 	}
 	return token
 }
@@ -79,6 +83,8 @@ func New(consumerKey, consumerSecret string) *AuthToken {
 //
 // It uses the environment string to determine which API endpoint to call.
 func (a *AuthToken) GetToken(env string) (string, error) {
+	a.locker.Lock()
+	defer a.locker.Unlock()
 	if a.token != "" && time.Now().Before(a.expiresAt) {
 		return a.token, nil
 	}
