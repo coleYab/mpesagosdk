@@ -3,11 +3,11 @@
 // The package also defines common response structures, error handling, and success responses.
 //
 // Key Features:
-// 	- Defines the `MpesaRequest` interface to validate, decode, and fill defaults for requests.
-// 	- Defines the `MpesaResponse` interface for all successful responses.
-// 	- Provides structures for handling error responses from M-Pesa APIs (`MpesaErrorResponse`).
-// 	- Defines a common response structure (`MpesaCommonResponse`) with shared fields.
-// 	- Provides an error handling mechanism for failed requests via the `Error` method on `MpesaErrorResponse`.
+//   - Defines the `MpesaRequest` interface to validate, decode, and fill defaults for requests.
+//   - Defines the `MpesaResponse` interface for all successful responses.
+//   - Provides structures for handling error responses from M-Pesa APIs (`MpesaErrorResponse`).
+//   - Defines a common response structure (`MpesaCommonResponse`) with shared fields.
+//   - Provides an error handling mechanism for failed requests via the `Error` method on `MpesaErrorResponse`.
 package types
 
 import (
@@ -31,42 +31,43 @@ import (
 //
 // Methods:
 //
-//   DecodeResponse(res *http.Response) (MpesaResponse, error):
-//     Decodes the HTTP response from the M-Pesa API into an appropriate Go structure.
+//	DecodeResponse(res *http.Response) (MpesaResponse, error):
+//	  Decodes the HTTP response from the M-Pesa API into an appropriate Go structure.
 //
-//   Validate() error:
-//     Performs validation checks on the request fields to ensure the data is complete and correct
-//     before sending the request to the API. Returns an error if the validation fails.
+//	Validate() error:
+//	  Performs validation checks on the request fields to ensure the data is complete and correct
+//	  before sending the request to the API. Returns an error if the validation fails.
 //
-//   FillDefaults():
-//     Populates default values for fields in the request. This ensures required fields
-//     have valid defaults if not explicitly set by the user.
+//	FillDefaults():
+//	  Populates default values for fields in the request. This ensures required fields
+//	  have valid defaults if not explicitly set by the user.
 //
 // Example:
-//   To create a new request type for an M-Pesa API endpoint, define a struct for the request data
-//   and implement the MpesaRequest interface. For example if mpesa decided to add a new feature
-//   for collecting recurring payments:
 //
-//   ```go
-//   // add the required json and validation tags
-//   type RecurringPaymentRequest struct {
-//       Field1 string `json:"Field1"`
-//       Field2 int    `json:"Field2"`
-// 		 ...
-//   }
+//	  To create a new request type for an M-Pesa API endpoint, define a struct for the request data
+//	  and implement the MpesaRequest interface. For example if mpesa decided to add a new feature
+//	  for collecting recurring payments:
 //
-//   func (r *MyMpesaRequest) DecodeResponse(res *http.Response) (interface{}, error) {
-//       // Implement response decoding logic
-//   }
+//	  ```go
+//	  // add the required json and validation tags
+//	  type RecurringPaymentRequest struct {
+//	      Field1 string `json:"Field1"`
+//	      Field2 int    `json:"Field2"`
+//			 ...
+//	  }
 //
-//   func (r *MyMpesaRequest) Validate() error {
-//       // Implement validation logic
-//   }
+//	  func (r *MyMpesaRequest) DecodeResponse(res *http.Response) (interface{}, error) {
+//	      // Implement response decoding logic
+//	  }
 //
-//   func (r *MyMpesaRequest) FillDefaults() {
-//       // Set default values for fields
-//   }
-//   ```
+//	  func (r *MyMpesaRequest) Validate() error {
+//	      // Implement validation logic
+//	  }
+//
+//	  func (r *MyMpesaRequest) FillDefaults() {
+//	      // Set default values for fields
+//	  }
+//	  ```
 //
 // This interface will improve consistency when adding a new feature to the sandbox.
 type MpesaRequest interface {
@@ -87,13 +88,11 @@ type MpesaErrorResponse struct {
 	ErrorMessage string `json:"errorMessage"`
 }
 
-// TODO: handle the error response please do that efficently
 func (e *MpesaErrorResponse) Error() string {
 	return fmt.Sprintf("request with id=%v failed with code=%v, due to %v", e.RequestId, e.ErrorCode, e.ErrorMessage)
 }
 
 type MpesaSuccessResponse struct{}
-
 
 // MpesaCommonResponse is a structure that holds fields common to all M-Pesa API responses.
 // It includes the conversation ID, originator conversation ID, response description, and response code.

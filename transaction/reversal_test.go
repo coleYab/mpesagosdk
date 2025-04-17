@@ -245,7 +245,7 @@ func TestTransactionReversalRequestValidation(t *testing.T) {
 
 			// Check if we expect an error
 			if (err != nil) != tt.wantErr {
-                t.Errorf("expected error: %v, got: %v, message: %v", tt.wantErr, err != nil, err.Error())
+				t.Errorf("expected error: %v, got: %v, message: %v", tt.wantErr, err != nil, err.Error())
 			}
 		})
 	}

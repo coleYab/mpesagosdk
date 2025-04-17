@@ -9,7 +9,7 @@ import (
 )
 
 func TestAccountBalanceRequestValidation(t *testing.T) {
-    v := validator.New()
+	v := validator.New()
 	tests := []struct {
 		name    string
 		req     AccountBalanceRequest
@@ -168,7 +168,7 @@ func TestAccountBalanceRequestValidation(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-            err := tt.req.Validate(v)
+			err := tt.req.Validate(v)
 			if tt.wantErr {
 				assert.Error(t, err)
 			} else {

@@ -13,23 +13,15 @@ import (
 )
 
 type AccountBalanceRequest struct {
-	CommandID types.CommandId `json:"CommandID" validate:"required"`
-
-	IdentifierType types.IdentifierType `json:"IdentifierType" validate:"required"`
-
-	Initiator string `json:"Initiator" validate:"required,min=1,max=255"`
-
-	PartyA int `json:"PartyA" validate:"required,min=1"`
-
-	QueueTimeOutURL string `json:"QueueTimeOutURL" validate:"required,url"`
-
-	Remarks string `json:"Remarks" validate:"max=500"`
-
-	ResultURL string `json:"ResultURL" validate:"required,url"`
-
-	SecurityCredential string `json:"SecurityCredential" validate:"required,min=8"`
-
-	OriginatorConversationID string `json:"OriginatorConversationID" validate:"required"`
+	CommandID                types.CommandId      `json:"CommandID" validate:"required"`
+	IdentifierType           types.IdentifierType `json:"IdentifierType" validate:"required"`
+	Initiator                string               `json:"Initiator" validate:"required,min=1,max=255"`
+	PartyA                   int                  `json:"PartyA" validate:"required,min=1"`
+	QueueTimeOutURL          string               `json:"QueueTimeOutURL" validate:"required,url"`
+	Remarks                  string               `json:"Remarks" validate:"max=500"`
+	ResultURL                string               `json:"ResultURL" validate:"required,url"`
+	SecurityCredential       string               `json:"SecurityCredential" validate:"required,min=8"`
+	OriginatorConversationID string               `json:"OriginatorConversationID" validate:"required"`
 }
 
 type AccountBalanceSuccessResponse types.MpesaCommonResponse

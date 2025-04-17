@@ -1,9 +1,9 @@
 package logger
 
 import (
+	"log/slog"
 	"os"
 	"strings"
-	"log/slog"
 )
 
 type LogLevel int
@@ -16,8 +16,8 @@ const (
 )
 
 type Logger struct {
-	level LogLevel
-    logger *slog.Logger
+	level  LogLevel
+	logger *slog.Logger
 }
 
 func NewLogger(level LogLevel) *Logger {
@@ -62,12 +62,11 @@ func ParseLevel(level string) LogLevel {
 	switch strings.ToUpper(level) {
 	case "INFO":
 		return INFO
-    case "DEBUG":
-        return DEBUG
+	case "DEBUG":
+		return DEBUG
 	case "ERROR":
 		return ERROR
 	default:
-        return WARN
+		return WARN
 	}
 }
-
